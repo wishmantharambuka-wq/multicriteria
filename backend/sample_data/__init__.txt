@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Site Suitability Engine</title>
+
+    <!-- Leaflet CSS -->
+    <link
+        rel="stylesheet"
+        href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+        crossorigin=""
+    />
+
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+        rel="stylesheet"
+    />
+
+    <!-- App Styles -->
+    <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+    <div id="app-container">
+
+        <!-- ===== SIDEBAR ===== -->
+        <aside id="sidebar">
+            <div class="sidebar-header">
+                <h1>🗺️ Site Suitability</h1>
+                <p class="subtitle">Multi-Criteria Analysis Engine</p>
+            </div>
+
+            <!-- UPLOAD SECTION -->
+            <section class="panel" id="upload-panel">
+                <h2>📁 Upload Layers</h2>
+                <p class="help-text">
+                    Upload GeoJSON files for your analysis layers
+                    (roads, flood zones, parcels, etc.)
+                </p>
+
+                <div id="drop-zone" class="drop-zone">
+                    <span class="drop-zone-icon">📂</span>
+                    <span>Drag & drop GeoJSON files here</span>
+                    <span class="drop-zone-or">— or —</span>
+                    <label class="file-input-label">
+                        Browse Files
+                        <input
+                            type="file"
+                            id="file-input"
+                            accept=".geojson,.json"
+                            multiple
+                            hidden
+                        />
+                    </label>
+                </div>
+
+                <!-- Uploaded layers list -->
+                <div id="layers-list" class="layers-list">
+                    <!-- Dynamically populated -->
+                </div>
+            </section>
+
+            <!-- CRITERIA SECTION -->
+            <section class="panel" id="criteria-panel">
+                <h2>⚖️ Analysis Criteria</h2>
+                <p class="help-text">
+                    Configure weights and parameters for each layer.
+                    Weights must sum to 100%.
+                </p>
+
+                <div id="criteria-controls">
+                    <!-- Dynamically generated per uploaded layer -->
+                </div>
+
+                <div id="weight-summary" class="weight-summary">
+                    <span>Total Weight:</span>
+                    <span id="weight-total" class="weight-total">0%</span>
+                </div>
+
+                <button
+                    id="run-analysis-btn"
+                    class="btn btn-primary"
+                    disabled
+                >
+                    🔬 Run Analysis
+                </button>
+            </section>
+
+            <!-- RESULTS SECTION -->
+            <section class="panel" id="results-panel" style="display: none;">
+                <h2>📊 Results</h2>
+                <div id="results-summary"></div>
+                <button id="export-btn" class="btn btn-secondary">
+                    💾 Export GeoJSON
+                </button>
+            </section>
+        </aside>
+
+        <!-- ===== MAP ===== -->
+        <main id="map-container">
+            <div id="map"></div>
+            <div id="map-loading" class="map-loading" style="display: none;">
+                <div class="spinner"></div>
+                <span>Processing spatial analysis...</span>
+            </div>
+        </main>
+
+    </div>
+
+    <!-- Leaflet JS -->
+    <script
+        src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+        crossorigin=""
+    ></script>
+
+    <!-- App Scripts (order matters) -->
+    <script src="js/map.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/app.js"></script>
+
+</body>
+</html>
